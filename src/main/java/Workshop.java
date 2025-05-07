@@ -30,7 +30,12 @@ public class Workshop {
     public int[] tablaMultiplicar(int numero, int limite) {
         // TODO: Implementar el método para retornar la tabla de multiplicar del número dado.
         // Ejemplo: Si numero = 2 y limite = 5, el resultado debería ser [2, 4, 6, 8, 10].
-        return new int[0];
+            int[] resultado = new int[limite];
+            for (int i = 0; i < limite; i++) {
+                resultado[i] = numero * (i + 1);
+            }
+            return resultado;
+
     }
 
     // Método que calcula el factorial de un número entero
@@ -54,7 +59,15 @@ public class Workshop {
     public boolean esPrimo(int numero) {
         // TODO: Implementar el método para verificar si un número es primo.
         // Ejemplo: Si numero = 7, el resultado debería ser true.
-        return false;
+        if (numero <= 1) {
+            return false;
+        }
+        for (int i = 2; i <= Math.sqrt(numero); i++) {
+            if (numero % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     // Método que genera una serie de Fibonacci
@@ -62,41 +75,100 @@ public class Workshop {
         // TODO: Implementar el método para generar la serie de Fibonacci hasta el número n.
         // Ejemplo: Si n = 5, el resultado debería ser [0, 1, 1, 2, 3].
         // Lanzar IllegalArgumentException si n es negativo.
-        return new int[0];
+        if (n < 0) {
+            throw new IllegalArgumentException("El número no puede ser negativo.");
+        }
+
+        int[] serie = new int[n];
+
+        if (n > 0) {
+            serie[0] = 0;
+        }
+        if (n > 1) {
+            serie[1] = 1;
+            for (int i = 2; i < n; i++) {
+                serie[i] = serie[i - 1] + serie[i - 2];
+            }
+        }
+
+        return serie;
     }
 
     // Método que suma todos los elementos de un arreglo
     public int sumaElementos(int[] arreglo) {
         // TODO: Implementar el método para sumar todos los elementos de un arreglo.
         // Ejemplo: Si arreglo = [1, 2, 3, 4, 5], el resultado debería ser 15.
-        return 0;
+        int suma = 0;
+        for (int i = 0; i < arreglo.length; i++) {
+            suma += arreglo[i];
+        }
+        return suma;
     }
 
     // Método que calcula el promedio de los elementos de un arreglo
     public double promedioElementos(int[] arreglo) {
         // TODO: Implementar el método para calcular el promedio de los elementos de un arreglo.
         // Ejemplo: Si arreglo = [1, 2, 3, 4, 5], el resultado debería ser 3.0.
-        return 0.0;
+        if (arreglo == null || arreglo.length == 0) {
+            return 0.0; // o puedes lanzar una excepción si prefieres
+        }
+
+        int suma = 0;
+        for (int i = 0; i < arreglo.length; i++) {
+            suma += arreglo[i];
+        }
+
+        return (double) suma / arreglo.length;
     }
 
     // Método que encuentra el elemento mayor en un arreglo
     public int encontrarElementoMayor(int[] arreglo) {
         // TODO: Implementar el método para encontrar el elemento mayor en un arreglo.
         // Ejemplo: Si arreglo = [1, 2, 3, 4, 5], el resultado debería ser 5.
-        return 0;
+        if (arreglo == null || arreglo.length == 0) {
+            throw new IllegalArgumentException("El arreglo no puede estar vacío.");
+        }
+
+        int mayor = arreglo[0];
+        for (int i = 1; i < arreglo.length; i++) {
+            if (arreglo[i] > mayor) {
+                mayor = arreglo[i];
+            }
+        }
+        return mayor;
     }
 
     // Método que encuentra el elemento menor en un arreglo
     public int encontrarElementoMenor(int[] arreglo) {
         // TODO: Implementar el método para encontrar el elemento menor en un arreglo.
         // Ejemplo: Si arreglo = [1, 2, 3, 4, 5], el resultado debería ser 1.
-        return 0;
+        if (arreglo == null || arreglo.length == 0) {
+            throw new IllegalArgumentException("El arreglo no puede estar vacío.");
+        }
+
+        int menor = arreglo[0];
+        for (int i = 1; i < arreglo.length; i++) {
+            if (arreglo[i] < menor) {
+                menor = arreglo[i];
+            }
+        }
+        return menor;
     }
 
     // Método que busca un elemento en un arreglo
     public boolean buscarElemento(int[] arreglo, int elemento) {
         // TODO: Implementar el método para buscar un elemento en un arreglo.
         // Ejemplo: Si arreglo = [1, 2, 3, 4, 5] y elemento = 3, el resultado debería ser true.
+        if (arreglo == null) {
+            return false;
+        }
+
+        for (int i = 0; i < arreglo.length; i++) {
+            if (arreglo[i] == elemento) {
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -104,14 +176,40 @@ public class Workshop {
     public int[] invertirArreglo(int[] arreglo) {
         // TODO: Implementar el método para invertir un arreglo.
         // Ejemplo: Si arreglo = [1, 2, 3, 4, 5], el resultado debería ser [5, 4, 3, 2, 1].
-        return new int[0];
+        if (arreglo == null) {
+            return null;
+        }
+
+        int[] invertido = new int[arreglo.length];
+        for (int i = 0; i < arreglo.length; i++) {
+            invertido[i] = arreglo[arreglo.length - 1 - i];
+        }
+
+        return invertido;
     }
 
     // Método que ordena un arreglo en orden ascendente
     public int[] ordenarArreglo(int[] arreglo) {
         // TODO: Implementar el método para ordenar un arreglo en orden ascendente.
         // Ejemplo: Si arreglo = [5, 4, 3, 2, 1], el resultado debería ser [1, 2, 3, 4, 5].
-        return new int[0];
+        if (arreglo == null) {
+            return null;
+        }
+
+        int[] copia = java.util.Arrays.copyOf(arreglo, arreglo.length);
+
+        for (int i = 0; i < copia.length - 1; i++) {
+            for (int j = 0; j < copia.length - 1 - i; j++) {
+                if (copia[j] > copia[j + 1]) {
+                    // Intercambio de elementos
+                    int temp = copia[j];
+                    copia[j] = copia[j + 1];
+                    copia[j + 1] = temp;
+                }
+            }
+        }
+
+        return copia;
     }
 
     // Método que elimina los duplicados de un arreglo
@@ -259,11 +357,56 @@ Rock crushes Scissors
     }
 
     public double areaCirculo(double radio) {
-        return 0.0;
+        return Math.PI * radio;
     }
 
     public String zoodiac(int day, int month) {
-        return "";
+        String signo = "";
+        if (day == 31 && month == 2) {
+            return "Invalid Date";
+        }else {
+        switch (month) {
+            case 1:
+                signo = (day <= 20) ? "Capricornio" : "Acuario";
+                break;
+            case 2:
+                signo = (day <= 19) ? "Acuario" : "Piscis";
+                break;
+            case 3:
+                signo = (day <= 20) ? "Piscis" : "Aries";
+                break;
+            case 4:
+                signo = (day <= 20) ? "Aries" : "Tauro";
+                break;
+            case 5:
+                signo = (day <= 20) ? "Tauro" : "Gemini";
+                break;
+            case 6:
+                signo = (day <= 20) ? "Gemini" : "Cancer";
+                break;
+            case 7:
+                signo = (day <= 22) ? "Cancer" : "Leo";
+                break;
+            case 8:
+                signo = (day <= 22) ? "Leo" : "Virgo";
+                break;
+            case 9:
+                signo = (day <= 22) ? "Virgo" : "Libra";
+                break;
+            case 10:
+                signo = (day <= 22) ? "Libra" : "Escorpio";
+                break;
+            case 11:
+                signo = (day <= 20) ? "Escorpio" : "Sagitario";
+                break;
+            case 12:
+                signo = (day <= 21) ? "Sagitario" : "Capricornio";
+                break;
+            default:
+                signo = "Fecha inválida";
+        }}
+
+        return signo;
     }
 
 
