@@ -216,49 +216,150 @@ public class Workshop {
     public int[] eliminarDuplicados(int[] arreglo) {
         // TODO: Implementar el método para eliminar los duplicados de un arreglo.
         // Ejemplo: Si arreglo = [1, 2, 2, 3, 4, 4, 5], el resultado debería ser [1, 2, 3, 4, 5].
-        return new int[0];
+        int n = arreglo.length;
+        // Creamos un arreglo temporal con el mismo tamaño
+        int[] temporal = new int[n];
+        int tamanoResultado = 0;
+
+        for (int i = 0; i < n; i++) {
+            boolean duplicado = false;
+            // Verificamos si arreglo[i] ya está en el arreglo temporal
+            for (int j = 0; j < tamanoResultado; j++) {
+                if (arreglo[i] == temporal[j]) {
+                    duplicado = true;
+                    break;
+                }
+            }
+            // Si no es duplicado, lo agregamos
+            if (!duplicado) {
+                temporal[tamanoResultado] = arreglo[i];
+                tamanoResultado++;
+            }
+        }
+
+        // Creamos el arreglo final con el tamaño exacto
+        int[] resultado = new int[tamanoResultado];
+        for (int i = 0; i < tamanoResultado; i++) {
+            resultado[i] = temporal[i];
+        }
+
+        return resultado;
     }
 
     // Método que combina dos arreglos en uno solo
     public int[] combinarArreglos(int[] arreglo1, int[] arreglo2) {
         // TODO: Implementar el método para combinar dos arreglos en uno solo.
         // Ejemplo: Si arreglo1 = [1, 2, 3, 4, 5] y arreglo2 = [6, 7, 8], el resultado debería ser [1, 2, 3, 4, 5, 6, 7, 8].
-        return new int[0];
+
+            int longitud1 = arreglo1.length;
+            int longitud2 = arreglo2.length;
+            int[] combinado = new int[longitud1 + longitud2];
+
+            // Copiamos los elementos del primer arreglo
+            for (int i = 0; i < longitud1; i++) {
+                combinado[i] = arreglo1[i];
+            }
+
+            // Copiamos los elementos del segundo arreglo
+            for (int i = 0; i < longitud2; i++) {
+                combinado[longitud1 + i] = arreglo2[i];
+            }
+
+            return combinado;
     }
 
     // Método que rota un arreglo n posiciones
     public int[] rotarArreglo(int[] arreglo, int posiciones) {
         // TODO: Implementar el método para rotar un arreglo n posiciones.
         // Ejemplo: Si arreglo = [1, 2, 3, 4, 5] y posiciones = 2, el resultado debería ser [3, 4, 5, 1, 2].
-        return new int[0];
+        int n = arreglo.length;
+        if (n == 0) return arreglo;
+
+        // Asegurar que posiciones esté dentro del rango válido
+        posiciones = posiciones % n;
+        if (posiciones < 0) posiciones += n; // soporta rotación negativa
+
+        int[] resultado = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            int nuevaPos = (i - posiciones + n) % n;
+            resultado[nuevaPos] = arreglo[i];
+        }
+
+        return resultado;
     }
 
     // Método que cuenta los caracteres en una cadena
     public int contarCaracteres(String cadena) {
         // TODO: Implementar el método para contar el número de caracteres en una cadena.
         // Ejemplo: Si cadena = "Hello", el resultado debería ser 5.
-        return 0;
+        if (cadena == null) {
+            return 0;
+        }
+        return cadena.length();
+
     }
 
     // Método que invierte una cadena
     public String invertirCadena(String cadena) {
         // TODO: Implementar el método para invertir una cadena.
         // Ejemplo: Si cadena = "Hello", el resultado debería ser "olleH".
-        return "";
+        if (cadena == null) return null;
+
+        char[] caracteres = cadena.toCharArray();
+        int izquierda = 0;
+        int derecha = caracteres.length - 1;
+
+        while (izquierda < derecha) {
+            // Intercambiar caracteres
+            char temp = caracteres[izquierda];
+            caracteres[izquierda] = caracteres[derecha];
+            caracteres[derecha] = temp;
+
+            izquierda++;
+            derecha--;
+        }
+
+        return new String(caracteres);
     }
 
     // Método que verifica si una cadena es un palíndromo
     public boolean esPalindromo(String cadena) {
         // TODO: Implementar el método para verificar si una cadena es un palíndromo.
         // Ejemplo: Si cadena = "madam", el resultado debería ser true.
-        return false;
+        if (cadena == null) {
+            return false;
+        }
+
+        // Convertir todo a minúsculas y eliminar todos los caracteres no alfabéticos
+        cadena = cadena.toLowerCase().replaceAll("[^a-z]", "");
+
+        int izquierda = 0;
+        int derecha = cadena.length() - 1;
+
+        while (izquierda < derecha) {
+            if (cadena.charAt(izquierda) != cadena.charAt(derecha)) {
+                return false;
+            }
+            izquierda++;
+            derecha--;
+        }
+
+        return true;
     }
 
     // Método que cuenta el número de palabras en una cadena
     public int contarPalabras(String cadena) {
         // TODO: Implementar el método para contar el número de palabras en una cadena.
         // Ejemplo: Si cadena = "Este es un test", el resultado debería ser 4.
-        return 0;
+        if (cadena == null || cadena.trim().isEmpty()) {
+            return 0;
+        }
+
+        // Dividimos la cadena en palabras usando espacios como delimitadores
+        String[] palabras = cadena.trim().split("\\s+");
+
+        return palabras.length;
     }
 
     // Método que convierte una cadena a mayúsculas
