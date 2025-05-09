@@ -542,3 +542,4 @@ Rock crushes Scissors
 
 }
 
+//que miras pe
